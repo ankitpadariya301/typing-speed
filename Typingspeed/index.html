@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Speed Test</title>
+  <style>
+    * { box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    .container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); max-width: 600px; width: 100%; text-align: center; }
+    h1 { margin-bottom: 20px; }
+    .text-display { border: 1px solid #ddd; padding: 15px; height: 120px; margin-bottom: 20px; border-radius: 8px; overflow-y: auto; text-align: left; background: #f9f9f9; font-size: 18px; line-height: 1.5; }
+    textarea { width: 100%; height: 100px; padding: 10px; border-radius: 8px; border: 1px solid #ddd; resize: none; margin-bottom: 15px; font-size: 16px; }
+    .stats { display: flex; justify-content: space-around; margin-bottom: 15px; font-weight: bold; }
+    button { padding: 10px 20px; border: none; border-radius: 8px; background-color: #007bff; color: white; cursor: pointer; margin: 5px; font-size: 16px; }
+    button:hover { background-color: #0056b3; }
+    .correct { color: green; }
+    .incorrect { color: red; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Typing Speed Test</h1>
+    <div class="text-display" id="text-display">Click "Start Test" to begin!</div>
+    <textarea id="text-input" placeholder="Start typing..." disabled></textarea>
+    <div class="stats">
+      <span>Time Left: <span id="timer">60</span>s</span>
+      <span>WPM: <span id="wpm">0</span></span>
+      <span>Accuracy: <span id="accuracy">0</span>%</span>
+    </div>
+    <button id="start-btn">Start Test</button>
+    <button id="restart-btn">Restart</button>
+  </div>
+
+  <script>
+    const textDisplay = document.getElementById('text-display');
+    const textInput = document.getElementById('text-input');
+    const timerEl = document.getElementById('timer');
+    const wpmEl = document.getElementById('wpm');
+    const accuracyEl = document.getElementById('accuracy');
+    const startBtn = document.getElementById('start-btn');
+    const restartBtn = document.getElementById('restart-btn');
+
+    let timer;
+    let timeLeft = 60;
+    let isRunning = false;
+    let originalText = "";
+
+    const texts = [
+      "The quick brown fox jumps over the lazy dog.",
+      "Typing speed tests are fun and improve your skills.",
+      "Practice makes perfect when it comes to typing fast.",
+      "JavaScript is essential for front-end web development."
+    ];
+
+    // Start Test
+    startBtn.addEventListener('click', () => {
+      resetTest();
+      originalText = texts[Math.floor(Math.random() * texts.length)];
+      displayText(originalText);
+      textInput.disabled = false;
+      textInput.focus();
+      isRunning = true;
+
+      timer = setInterval(() => {
+        if (timeLeft > 0) {
+          timeLeft--;
+          timerEl.textContent = timeLeft;
+          updateStats();
+        } else {
+          clearInterval(timer);
+          textInput.disabled = true;
+          isRunning = false;
+          updateStats();
+        }
+      }, 1000);
+    });
+
+    // Restart Test
+    restartBtn.addEventListener('click', () => {
+      clearInterval(timer);
+      resetTest();
+    });
+
+    // Reset function
+    function resetTest() {
+      timeLeft = 60;
+      timerEl.textContent = timeLeft;
+      textInput.value = "";
+      textInput.disabled = true;
+      wpmEl.textContent = 0;
+      accuracyEl.textContent = 0;
+      textDisplay.textContent = "Click \"Start Test\" to begin!";
+      isRunning = false;
+    }
+
+    // Input listener
+    textInput.addEventListener('input', () => {
+      if (isRunning) updateStats();
+    });
+
+    // Display text with spans for coloring
+    function displayText(text) {
+      textDisplay.innerHTML = '';
+      text.split('').forEach(char => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        textDisplay.appendChild(span);
+      });
+    }
+
+    // Update stats and highlight letters
+    function updateStats() {
+      const inputText = textInput.value;
+      const wordsTyped = inputText.trim().split(/\s+/).filter(Boolean).length;
+
+      // Highlight correct/incorrect letters
+      const spans = textDisplay.querySelectorAll('span');
+      spans.forEach((span, idx) => {
+        if (idx < inputText.length) {
+          if (inputText[idx] === span.textContent) {
+            span.className = 'correct';
+          } else {
+            span.className = 'incorrect';
+          }
+        } else {
+          span.className = '';
+        }
+      });
+
+      // Count correct characters
+      let correctChars = 0;
+      for (let i = 0; i < inputText.length; i++) {
+        if (inputText[i] === originalText[i]) correctChars++;
+      }
+      const accuracy = inputText.length === 0 ? 0 : Math.round((correctChars / inputText.length) * 100);
+      const wpm = Math.round(wordsTyped / ((60 - timeLeft) / 60)) || 0;
+
+      wpmEl.textContent = wpm;
+      accuracyEl.textContent = accuracy;
+
+      // Stop timer if typing is complete
+      if (inputText === originalText) {
+        clearInterval(timer);
+        textInput.disabled = true;
+        isRunning = false;
+        timerEl.textContent = timeLeft;
+        alert(`🎉 Congrats! You completed the text.\nWPM: ${wpm}, Accuracy: ${accuracy}%`);
+      }
+    }
+  </script>
+</body>
+</html>
